@@ -1,13 +1,12 @@
 services:
   db:
-    image: mysql:8.0
-    container_name: mysql-db
+    image: postgres:16  # PostgreSQL 16
+    container_name: postgres-db
     environment:
-      MYSQL_DATABASE: inventory_db
-      MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_USER: user
-      MYSQL_PASSWORD: user_password
+      POSTGRES_DB: product_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: user_password
     ports:
-      - "3306:3306"
+      - "5432:5432"
     volumes:
-      - ./db_data:/var/lib/mysql
+      - ./postgres_data:/var/lib/postgresql/data

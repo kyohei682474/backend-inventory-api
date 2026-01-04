@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.ProductMapper">
+
+    <select id="findAll" resultType="com.example.demo.entity.Product">
+        SELECT * FROM products ORDER BY created_at DESC
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO products (sku, name, description, status, discontinued_at, discontinued_note)
+        VALUES (#{sku}, #{name}, #{description}, #{status}, #{discontinuedAt}, #{discontinuedNote})
+    </insert>
+
+</mapper>
