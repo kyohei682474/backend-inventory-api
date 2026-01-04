@@ -1,8 +1,11 @@
 package com.example.demo.entity;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import java.time.OffsetDateTime; 
+import java.time.OffsetDateTime;
 
 /**
  * 商品マスタ Entity
@@ -15,12 +18,19 @@ import java.time.OffsetDateTime;
 @Setter
 public class Product {
     private Long id;
+    @NotBlank(message = "SKUは必須です")
+    @Size(max = 64, message = "SKUは64文字以内で入力してください")
     private String sku;
+    @NotBlank(message = "商品名は必須です")
+    @Size(max = 200, message = "商品名は200文字以内で入力してください")
     private String name;
     private String description;
+    @NotBlank(message = "ステータスは必須です")
+    @Pattern(regexp = "ACTIVE|INACTIVE", message = "ステータスはACTIVEまたはINACTIVEのいずれかである必要があります")
     private String status;
     private OffsetDateTime discontinuedAt;
     private String discontinuedNote;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
+    
 }

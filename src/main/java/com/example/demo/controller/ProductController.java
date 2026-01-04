@@ -1,31 +1,35 @@
 package com.example.demo.controller;
-
+import jakarta.validation.Valid;
 import com.example.demo.entity.Product;
+import com.example.demo.service.ProductService; 
+import lombok.RequiredArgsConstructor;           
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/products")
+@RequiredArgsConstructor // ★1: これを追加（Serviceを自動でセットするため）
 public class ProductController {
+
+    // ★2: Serviceを呼び出すための定義
+    private final ProductService productService;
 
     /**
      * 商品一覧取得
-     * ※現在はスタブ実装のため空リストを返します
+     * Serviceを呼び出してDBから本物のデータを取ります
      */
     @GetMapping
     public List<Product> list() {
-        return new ArrayList<>();
+        return productService.getAllProducts(); // ★3: 修正
     }
 
     /**
      * 商品登録
-     * ※現在はスタブ実装のため受け取るだけです
+     * Serviceを呼び出してDBに保存します
      */
     @PostMapping
-    public void create(@RequestBody Product product) {
-        // TODO: Service層の実装後、保存処理を呼び出す
-        System.out.println("商品の登録リクエストを受け付けました: " + product.getName());
+    public void create(@Valid @RequestBody Product product) {
+        productService.createProduct(product); // ★4: 修正
     }
 }
